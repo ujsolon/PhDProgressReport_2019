@@ -1,0 +1,11 @@
+\select@language {english}
+\beamer@sectionintoc {1}{Summary - Test}{3}{0}{1}
+\beamer@sectionintoc {2}{Ruin Theory for L\'evy Processes}{5}{0}{2}
+\beamer@sectionintoc {3}{The $W_q$ scale function and Discounting}{20}{0}{3}
+\beamer@sectionintoc {4}{The Dividend Problem}{28}{0}{4}
+\beamer@subsectionintoc {4}{1}{The Cramer-Lundberg model with exponential jumps}{39}{0}{4}
+\beamer@sectionintoc {5}{Approximations to the $W_q$ scale function}{44}{0}{5}
+\beamer@subsectionintoc {5}{1}{Pade Approximation}{46}{0}{5}
+\beamer@subsectionintoc {5}{2}{Laguerre Approximation}{53}{0}{5}
+\beamer@subsectionintoc {5}{3}{Example: a Cramer-Lundberg model with exponential mixture jumps of order two}{59}{0}{5}
+\beamer@sectionintoc {6}{Trainings completed, Article submitted}{64}{0}{6}

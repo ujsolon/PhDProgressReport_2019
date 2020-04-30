@@ -1,0 +1,33 @@
+\section{Minimizing the ruin probability via reinsurance}
+Of course, insurance (and  reinsurance) are not for free; they influence the  premium income of the  insurers  via so called premium principles.
+
+{\bf Premium principles} are specified by a deterministic
+premium function $\pi : L_1 (\Omega, P) \to [0,\I)$. Some of the most popular choices are
+
+a) the \textit{expectation principle},   with
+$$\pi (Z) = (1 + \eta)E[Z],$$
+where $\eta $ denotes a safety loading %of the reinsurer,
+
+b) the \textit{variance principle}
+$$\pi (Z) = E[Z] + \eta Var [Z]$$ %for $\a Var [Y] > \th m_1$.
+
+c) the \textit{exponential principle}
+$$\pi (Z) = \frac{E[e^{\eta Z}]-1}{\eta}.$$
+
+Under the assumption of the expected
+value principle, \ith:
+\bea c=(1+\th) E \sum_{i=1}^{N_\l(1)} C_i=(1+\th) \l m_1,\eea
+where $\th > 0$ is the safety loading for the insurer. 
+
+Suppose now that the insurer attempts to reduce his risk exposure by purchasing a proportional reinsurance
+with a retention level of $\a \in [0, 1]$. Specifically, for each claim of size $C_i$, the insurer covers $\a C_i$ and the reinsurer
+covers the rest $(1-\a) C_i$.
+ Suppose that the reinsurer also uses the expected premium principle, but with a larger
+safety loading $\eta >\th$ (the reinsurance is then called ``non-cheap").  The premium rate for reinsurance is then
+\bea c_\a =(1+\eta) (1-\a)\l m_1.\eea
+Then, the surplus process with reinsurance can be expressed as
+\begin{eqnarray*} \la{CLr}
+\T X^{(\a)}_t &=& x + (c-c_\a) t  - \a \sum_{i=1}^{N_\lambda (t)} C_i\\&=& x + \l m_1\Big( \th -\eta+ \a(1+\eta)\Big) t  - \a \sum_{i=1}^{N_\lambda (t)} C_i.
+\end{eqnarray*}
+
+The underlying question is how to chose $\a$ in order to minimize the probability of ruin.

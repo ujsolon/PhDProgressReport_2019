@@ -1,0 +1,841 @@
+\documentclass[xcolor=pdftex,dvipsnames,table]{beamer}
+
+\usetheme{Madrid}
+
+\usepackage{amssymb, amsmath, amsfonts}
+\usepackage{amsthm}
+\usepackage{graphics}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usefonttheme[onlymath]{serif}
+\usepackage{multimedia}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{polynom}
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{natbib}% For bibliography
+
+% Number sets
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\I}{\mathbbm{I}}
+\newcommand{\V}{\mathcal{V}}
+
+% Environments all not italicized
+\theoremstyle{definition} 
+\newtheorem*{defn}{Definition}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{lem}{Lemma}
+\newtheorem*{ex}{Example}
+\newtheorem*{rmk}{Remark}
+\newtheorem*{conj}{Conjecture}
+
+\def\ds{\displaystyle}
+\def\lt{\left}
+\def\rt{\right}
+\def\enumb{\begin{enumerate}}
+\def\enume{\end{enumerate}}
+\def\gif#1{\left[\!\left[#1\right]\!\right]}  	   %Example: $\gif{3x-2}$
+\def\mbbE{\mathbb{E}}
+\def\mbbP{\mathbb{P}}
+\def\Ci{\frac{1}{2 \pi i} \int_{\theta -i \infty}^{\theta +i \infty}}
+\def\mT{\mathcal T} \def\Pa{\partial}
+\def\lra{\leftrightarrow}
+\def\Rui{\Psi} \def\sRui{\overline{\Psi}}
+\def\rui{\psi}
+\long\def\symbolfootnote[#1]#2{
+\begingroup
+\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}
+\endgroup}
+\def\fn{\symbolfootnote}
+\def\Tl{\tilde{\lambda}}
+\def\cgf{cumulant generating function }
+\def\BPK{Benes-Pollaczek-Khinchin }
+\def\CL{Cramér Lundberg }
+\def\WP{Wong Pearson}
+\def\prf#1{\fr{\partial}{\partial \, #1}}
+\def\pr#1#2{\fr{\partial^{#2}}{\partial \, #1^{#2}}}
+\def\pr#1{\fr{\partial}{\partial \, #1}}
+\def\Gi{\overleftarrow{\bff G}}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \frametitle{\insertsectionhead}
+  \end{frame}
+}
+
+\renewcommand{\footnotesize}{\scriptsize}
+
+\title[PhD Mathematics Progress Report]{PhD Mathematics Progress Report}
+%\subtitle{\small{MS Applied Math Thesis Defense}}
+%\author[UASJ]{Gabriel Dominik E. Sison, Ulyses A. Solon Jr., Aimee B. Rarugal}
+%\institute[UP]{Instrumentation Physics Laboratory, National Institute of Physics /n Institute of Mathematics, University of the Philippines-Diliman}
+%\institute[UP]{Institute of Mathematics, University of the Philippines-Diliman}
+
+%\author[Ulyses A. Solon Jr]{Ulyses A. Solon Jr\\ \footnotesize Co-advisers: Guido P. David, Giovanni A. Tapang} % auteur
+\author[U. Solon]{Ulyses A. Solon Jr.}
+
+\date[\today]{\today}
+%\institute[UPD-IMath]{UP Diliman - Institute of Mathematics}
+\titlegraphic{%
+    %\includegraphics[height=0.5cm]{ipl}~%
+    %\includegraphics[height=1cm]{nip}~%
+    %\includegraphics[height=1cm]{iM}~%
+    %\includegraphics[height=1cm]{UP}%
+}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Summary - Test}
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{itemize}
+\item Title of thesis (tentative) : Numerical methods for the optimization of dividends, reinsurance, and investments
+\item Keywords: ruin probability, Pollaczek-Khinchine formula, scale function, optimal dividends, Pad\'e approximations
+\item Activities for the first year:
+\begin{enumerate}
+\item Established knowledge of background material
+\item Took and completed necessary trainings (les formations)
+\item Submitted an article to a journal
+\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\section{Ruin Theory for L\'evy Processes}
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{defn}
+A L\'evy process $X = \{ X(t) \}_{t \in \R^+ }$ is a stochastic process taking values in $\R$ such that $X$ has
+\enumb
+\item independent increments: $X(t)-X(s)$ is independent of $\{ X(u) : u \leq s \}$ for any ${s<t}$,
+\item stationary increments: $X(s+t)-X(s)$ has the same distribution as $X(t)-X(0)$ for any ${s,t>0}$,
+\item continuity in probability: $ X(s) \rightarrow X(t) $ in probability as $s \rightarrow t$.
+\enume
+\end{defn}
+Note: sometimes we write $X(t)$ as $X_t$
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{rmk}
+Let $X(t)$ be a Levy process. Then
+\begin{align*}
+\mbbE_0 [e^{sX(t)}] = e^{t\kappa(s)}
+\label{LevyExp}
+\end{align*}
+for a function $\kappa(s)$ called the Levy exponent of $X(t)$. 
+\end{rmk}
+\begin{rmk}[Levy-Khintchine representation of a Levy process]
+Let $X(t)$ be a Levy process. Then
+\begin{align*}
+\kappa(s) = ps + \frac{\sigma^2}{2} s^2 + \int_0^{\infty} [e^{-sy}-1 +sy ] \nu(dy)
+\end{align*}
+where $p=\mbbE_0[X(1)]$, $\sigma \geq 0$ and $\nu$ is the Levy measure of $-X$.
+\end{rmk}
+Notes: $\mbbE_x [X(t)] := \mbbE [X(t) | X(0)=x]$\\
+In this presentation we consider $\sigma=0$
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+In the ruin problem, one assumes
+\enumb
+\item an initial capital $u>0$,
+\item a constant stream of `money' $c>0$ per unit time, and
+\item a varying stream of losses represented by $S(t)$ (a L\'evy process)
+\enume \pause
+Overall  one observes the behaviour of the process
+\[ X(t) = u + ct - S(t), \]
+which is also L\'evy. Furthermore this process $X(t)$ is said to be spectrally negative, that is, jumps represented by $-S(t)$ can only be negative.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Now, in particular if we assume $S(t) = \sum_{i=1}^{N_{\lambda}(t)} C_i$, i.e. $S(t)$ is a countable sum of random variables $C_i$ having the same distribution function $F$, and the number of $C_i$'s being summed, $N_{\lambda}(t)$, is also assumed to be random variable having a Poisson distribution with parameter $\lambda$, we get the Cramer Lundberg process.
+\begin{figure}
+\caption{A sample path of a Cram\'er Lundberg process}
+\begin{center}
+\includegraphics [width=3.3in]{CL1-1.png}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{figure}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics [width=3.3in]{CL1-1.png}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}  %%<--- here
+\begin{center}
+\pause
+\includegraphics [width=1.4in]{CL3-1.png}
+\pause
+\includegraphics [width=1.4in]{CL2-1.png}
+\end{center}
+\end{column}
+\end{columns}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Define
+\[ \tau_b^+ = \inf\{ t \geq 0, X(t) > b\}\]
+\[ \tau_b^- = \inf\{ t \geq 0, X(t) < b\}\]
+the infimum values at which the process $X(t)$ goes above or below a certain value $b$.\\
+Using this notation, we can denote the time of ruin as $\tau = \tau_0^-$. Moreover, if $X(t) > 0$ $\forall t\geq 0$, then we say $\tau = + \infty$.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Let $t, u >0$. The probability of ruin before time $t$ and given initial value $u$ is written as
+\[\Psi(t|u) = \mathbb{P} [\tau < t | X(0)=u ].  \]
+We refer to this scenario ruin in finite time.\\ \pause
+
+Alternatively, one can study probabilities of survival in finite time by observing the function
+\[ \bar {\Psi} (t|u) = \mathbb{P} [\tau \geq t | X(0)=u ] = 1 - \Psi (t|u) . \]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Letting the value of $t$ approach infinity, we get a quantity which can be interpreted as the probability of eventual ruin, or ruin in infinite time.\\
+Let $u >0$. The probability of ruin given initial value $u$ is written as
+\[\Psi(u) = \mathbb{P} [\tau < +\infty | X(0)=u ]. \]
+Same as in the last definition, we also can study 
+\[ \bar {\Psi} (u) = \mathbb{P} [\tau = + \infty | X(0)=u ] = 1 - \Psi (u). \]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+A formula published by Pollaczek (1930) and used thereafter by contemporaries originally tackling problems in queueing theory found great use in the study of ruin theory:
+\[\hat \Psi(s) = \int_0^{\infty} e^{-s u} \Psi(u) du
+= \frac{\lambda (m_1 - \hat{\bar{F}}(s))}{s (c-\lambda \hat{\bar{F}}(s)) }\]
+where $\hat \Psi(s)$ and $\hat{\bar{F}}(s)$ are the Laplace transforms of the ruin function and the survival function of the claim distributions respectively, and $m_1$ is the first moment of the claims.\\
+Further results concerning the relationship of $\hat \Psi(s)$ with other quantities such as the Levy exponent $\kappa (s)$ of the underlying process can be derived from this formula.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{thm}[The Pollaczek-Khinchine formulas for the ruin function Laplace transform]
+Let $X(t) = u + ct - S(t), \quad S(t) = \sum_{i=1}^{N_\lambda (t)} C_i$ be a Cram\'er Lundberg risk process and $\Psi$ its corresponding ruin function. Then the Laplace transforms of the ruin function and its corresponding survival function can be expressed as
+\begin{align*}
+\hat \Rui(s) &= \int_0^{\infty} e^{-s u} \Rui(u) du
+= \frac{\lambda (m_1 - \hat{\bar{F}}(s))}{s (c-\lambda \hat{\bar{F}}(s)) } = \frac{1}{s}- \frac{ \kappa'(0)}{ \kappa(s)} \\
+\hat \sRui(s) &= \int_0^{\infty} e^{-s u} \sRui(u) du = \frac{1}{s} - \hat \Rui(s) = \frac{\kappa'(0)}{\kappa(s)}
+\end{align*}
+where $\rho =(\lambda m_1)/c$, $f_e(x):=\bar{F}(x)/m_1$, and $\kappa(s) =  cs( 1- \rho \hat f_e(s)) $ the Levy exponent of the Cramer Lundberg process.
+\end{thm}
+\end{frame}
+
+
+\section{The $W_q$ scale function and Discounting}
+\begin{frame}
+\frametitle{\insertsectionhead}
+One may generalize the ruin problem to problems where it is not necessarily the first passage time thru zero that matters.\\
+In the two sided exit problem, we assume $a<b$, and are interested in quantities such as $\tau_a^+$, $\tau_b^-$, $\tau := \min\{ \tau_a^+, \tau_b^- \}$ and 
+\[ \Rui_{a,b}(x) = \mathbb{P}_x [\tau_a^+ < \tau_b^-] \]
+\[ \sRui_{a,b}(x) = \mathbb{P}_x [\tau_a^+ > \tau_b^-] \].
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{figure}
+\caption{Sample path for a two sided exit problem}
+\begin{center}
+\includegraphics [width=2.3in]{twosided2.png}
+\end{center}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+It can be shown, via the Markov property of the underlying process, that for some function $W$, we have 
+\[ \sRui_{a,b}(x) = \frac{W(x-a)}{W(b-a)}\]
+We will refer to this function $W$ as the $W$ scale function of the process.
+Furthermore upon taking the Laplace transform of the previous equation we get
+\[ \hat \sRui_{a,b}(s) = \frac{\hat W(s)}{W(b-a)}, \]
+and in the case of the ruin problem where $\hat \sRui(s) = \frac{\kappa'(0)}{\kappa(s)}$, we get the idea that \[\hat W(s) = C \frac{1}{\kappa(s)}\] up to a certain constant $C$.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Generalizing further, suppose there exist an `interest rate' $q \geq 0$ such that one considers the `discounted value' of the underlying process with respect to this $q$ when deciding for the  first passage time.\\
+In this scenario,
+\[ \sRui_{a,b}(x) = \mathbb{E}_x [ e^{-q \tau_b^+} \cdot \mathbbm{1}_{\{\tau_a^+ > \tau_b^-\}}] \]
+where $\mathbbm{1}_{A}$ is the event that $A$ happens.\\
+Here the probability of survival considers all events where $\tau_a^+ > \tau_b^-$, and gets the expected value of the discounted value of 1 at the time $\tau_b^+$ with respect to $q$, hence the term $e^{-q \tau_b^+}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Even with discounting, through the same analysis as before one can find a function $W_q$ for which
+\[ \sRui_{a,b}(x) = \frac{W_q(x-a)}{W_q(b-a)}. \]
+In fact if one defines $W_q(s): (0,+\infty) \rightarrow [0,+\infty)$ to have a Laplace transform
+\[ \hat{W}_q(s) = \int_0^{\infty} e^{-sx} W_q(x) ~dx  := \frac{1}{\kappa(s) - q} \quad \forall s > \Phi (q), \]
+one would arrive at such a function. As before we call this the $W_q$ scale function of the underlying process.\\
+Note: $\Phi (q) := \sup \{ s\geq 0 : \kappa(s) - q = 0 \}$
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{rmk}
+The scale function $W_q$ is continuous and increasing on $[0,\infty]$. Bingham (1976), (Bertoin 1998, 49 Thm. VII.8), (Kyprianou 2014, Thm. 8.1)
+\end{rmk}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{rmk} [KS07, Lem. 4.3-4.4, KKR13, Lem. 3.2-3.3]
+The behavior in the neighborhood of zero of $W_q$ can be obtained from the behavior of its Laplace transform $\hat{W}_q$ at $\infty$
+\begin{align}
+\label{W0}
+W_q (0^+) &= \lim_{s\rightarrow \infty} \frac{s}{\kappa(s)-q}= \begin{cases} \frac{1}{c} &\text{ if $X$ is of bdd variation}\\ 0 & 
+\text{ if $X$ is of unbdd variation} \end{cases}\\
+\nonumber  W'_q (0^+) &= \lim_{s\rightarrow \infty} s\lt( \frac{s}{\kappa(s)-q} - W_q(0) \rt) \\
+\label{Wprime0} &= \begin{cases} \frac{q + \nu (u,\infty)}{c^2} &\text{ if $X$ is of bdd variation}\\ \frac{2}{\sigma^2} & \text{ if $X$ is of unbdd variation} \end{cases}
+\end{align}
+\end{rmk}
+Note:  Perturbation parameter $\sigma$
+\end{frame}
+
+
+\section{The Dividend Problem}
+\begin{frame}
+\frametitle{\insertsectionhead}
+The notion of the problem of dividends is popularized by De Fenetti (1957) and starts by considering a Cramer-Lundberg process $\{ X(t) \}_{t \in [0,\infty] }$ (we can of course consider more general cases) and another process $\{ L(t) \}_{t \in [0,\infty] }$ which is left continuous, nonnegative, and non decreasing.\\
+\bigskip
+The quantity $L(t)$ can be thought of as the cumulative dividends paid up to time $t$ of an insurance company and hence the risk process taking into account the dividends is $\{ U(t) \}_{t \in [0,\infty] }$ where
+\[
+U(t) = X(t) - L(t).
+\]
+The general problem is the characterization of $L$ and the maximization of $U$ through the choice of $L$, often called a dividend strategy.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+A dividend strategy is called admissible if at any time before ruin, all dividend payments are smaller than the current value of $U$, that is
+\[L(t^+) - L(t) \leq U(t), \quad \forall t < \tau\]
+where $\tau$ is the ruin time of $U$.\\
+\bigskip
+There are a number of possible dividend strategies, hence one often associates another parameter to the process $L$, say $L^{\pi}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Denoting all admissible strategies by $\Pi$, we write the expected value at the discount rate $q\geq 0$ associated with the dividend strategy $\pi \in \Pi$ with initial surplus $x \geq 0$ as
+\[
+V^{\pi}(x) = \mbbE_x \lt[ \int_0^{\tau^{\pi}} e^{-qt} dL^{\pi}_t \rt].
+\]
+One may sometimes see $V^{\pi}$ being referred to as the value function associated with strategy $\pi$. The problem is the characterization of 
+\[
+V(x) = \sup_{\pi \in \Pi} V^{\pi}(x).
+\]
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Under the barrier strategy studied by Avram (2007), the  process $U$ is never allowed to go above a constant level $b>0$, by setting
+\[ L(t) = (X(t)-a)^+ = \max \{0, X(t)-a\}. \]
+That is, surplus above the barrier $b$ is always paid as dividend.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{figure}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics [width=2.2in]{divi1-1.png}
+$X(t)$
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}  %%<--- here
+\begin{center}
+\pause
+\includegraphics [width=2.2in]{divi2-1.png}\\
+$U(t)$\\
+\pause
+\includegraphics [width=1.2in]{divi3-1.png}\\
+$L(t)$
+\end{center}
+\end{column}
+\end{columns}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Clearly, this strategy, which we denote by $b] \in \Pi$, is admissible, and referencing Avram (2007), we have
+\begin{theorem}
+Let $W_q$ be the associated scale function to $X$ under the discount rate $q\geq 0$. Under a constant dividend barrier strategy $b] \in \Pi$,
+\[ V^{b]} (x) = \begin{cases} 
+\frac{W_q(x)}{W'_q(b)} & \text{ if $x \leq b$}\\
+x - b + \frac{W_q(b)}{W'_q(b)} & \text{ if $x > b$}
+\end{cases}
+\]
+\end{theorem}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Looking at $V^{b]}$ as a function of $b$ instead of $x$, we can solve for $V$ by looking at where the derivative of $V^{b]}$ is zero. We summarize this result through the use of the `barrier function' $H$.
+\begin{rmk}[\cite{APP}, \cite{Loef08}]
+Let $b \geq 0$ and $H(b) = \frac{1}{W'_q (b)}$.\\
+If $H$ is differentiable with $H'(0) > 0$, and has a unique local maximum $b^*>0$, then this $b^*$ yields the optimal barrier strategy, i.e. $V= V^{b^*]}$
+\end{rmk}
+Notes:\\
+$H'(0) > 0 \iff W_q''(0)<0$\\
+local maximum at $b^* \Rightarrow W_q''(b^*) =0$\\
+uniqueness of local maximum at $b^* \Rightarrow H(b_1) \geq H(b_2)$, whenever $b* \leq b_1 \leq b_2$
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+This remark tells us that not only is $V^{b^*]}$ the optimal strategy over the space of the constant barrier strategies, but it is optimal over all strategies in $\Pi$.\\
+\bigskip
+We will not be tackling other dividend strategies in this presentation, nonetheless, we stress the fact that they do exist (see for example threshold strategies (\cite{gerber2004optimal}), multiband strategies (\cite{AM05}), etc.)
+\end{frame}
+
+\subsection{The Cramer-Lundberg model with exponential jumps}
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{ex}[The Cramer-Lundberg model with exponential jumps]
+\label{CLexpo}
+Consider the Cramer-Lundberg model $ X(t) = u + ct - S(t), \quad S(t) = \sum_{i=1}^{N_\lambda (t)} C_i $\\
+where $C_i$'s are exponentially distributed with $\mbbE C_i = \frac{1}{\mu}$.\\
+\bigskip
+Standard computations yield
+\[
+\kappa(s)= s \lt( c- \frac{\lambda}{s + \mu} \rt), \quad \kappa'(0) = c - \frac{\lambda}{\mu}
+\]
+and solving
+\[
+\kappa(s)-q = 0 \iff cs^2 + (c\mu -\lambda -q ) s -q\mu = 0
+\] 
+\end{ex}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{ex}[The Cramer-Lundberg model with exponential jumps]
+\[
+\kappa(s)-q = 0 \iff cs^2 + (c\mu -\lambda -q ) s -q\mu = 0
+\] 
+yields two distinct solutions $\gamma_1 \leq 0 \leq \gamma_2$ given by
+\[
+\gamma_1 = \frac{1}{2c} \lt( -(c\mu -\lambda -q ) + \sqrt{ (c\mu -\lambda -q )^2 + 4 c q\mu} \rt)
+\]
+\[
+\gamma_1 = \frac{1}{2c} \lt( -(c\mu -\lambda -q ) - \sqrt{ (c\mu -\lambda -q )^2 + 4 c q\mu} \rt).
+\]
+\end{ex}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{ex}[The Cramer-Lundberg model with exponential jumps]
+In this example the Laplace transform of the $W_q$ scale function is
+\[
+\hat{W}_q(s) = \frac{1}{\kappa(s)-q} = \frac{s + \mu}{cs^2 + (c\mu -\lambda -q ) s -q\mu}
+\]
+which, when inverted becomes
+\[
+W_q(x) = \frac{(\gamma_1 + \mu)e^{\gamma_1 x} - (\gamma_2 + \mu) e^{\gamma_2 x} }{c(\gamma_1 - \gamma_2)}
+\]
+\end{ex}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{ex}[The Cramer-Lundberg model with exponential jumps]
+Differentiating we get
+\[
+W'_q(x) = \frac{\gamma_1(\gamma_1 + \mu)e^{\gamma_1 x} - \gamma_2(\gamma_2 + \mu) e^{\gamma_2 x} }{c(\gamma_1 - \gamma_2)}
+\]
+\[
+W''_q(x) = \frac{\gamma_1^2(\gamma_1 + \mu)e^{\gamma_1 x} - \gamma_2^2(\gamma_2 + \mu) e^{\gamma_2 x} }{c(\gamma_1 - \gamma_2)}
+\]
+which implies
+\[
+W''_q(x) =0 \iff x = \frac{1}{\gamma_1 - \gamma_2} \log \frac{\gamma_2 (\gamma_2 + \mu)}{\gamma_1 (\gamma_1 + \mu)}.
+\]
+\end{ex}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{ex}[The Cramer-Lundberg model with exponential jumps]
+The function $W_q'(x)$ is unimodal with extremum at $x* = \frac{1}{\gamma_1 - \gamma_2} \log \frac{\gamma_2 (\gamma_2 + \mu)}{\gamma_1 (\gamma_1 + \mu)}$. Hence if 
+\[
+W''_q(0)<0 \Rightarrow x* \text{ is a global minimum}
+\]
+and
+\[
+W''_q(0)\geq 0 \Rightarrow x* \text{ is a global maximum}.
+\]
+Therefore the optimal boundary $b*$ for the dividend problem is
+\[
+b*=
+\begin{cases}
+\frac{1}{\gamma_1 - \gamma_2} \log \frac{\gamma_2 (\gamma_2 + \mu)}{\gamma_1 (\gamma_1 + \mu)} & \text{ if } W''_q(0)<0\\
+0 & \text{ if } W''_q(0)\geq 0.
+\end{cases}
+\]
+\end{ex}
+\end{frame}
+
+\section{Approximations to the $W_q$ scale function}
+\begin{frame}
+\frametitle{\insertsectionhead}
+Consider a spectrally negative Levy risk process $X = u + ct - S(t)$ and associated Levy measure $\nu$ with $\kappa(s) = s(c- \hat{\bar{\nu}} (s))$ as its Levy-Khintchine representation.\\
+
+Letting $\nu_k = \int_{0}^{\infty} x^k \nu(dx)$ be the moments of the Levy measure. Then one can obtain a power series representation of the Levy exponent in terms of the moments given by
+\[
+\kappa(s) = s(c- \hat{\bar{\nu}} (s)) = cs + \sum_{k=1}^{\infty} \nu_k \frac{(-s)^k}{k!}.
+\]
+In the Cramer-Lundberg case where the intensity of the claim arrivals are given by the Poisson parameter $\lambda$, $\nu_k = \lambda m_k$ where $m_k$'s are the moments of the claims $C_i$.
+\end{frame}
+
+\subsection{Pade Approximation}
+\label{PadeApproxSection}
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+One can thus write 
+\[
+\hat{W}_q(s) = \frac{1}{\kappa(s)-q} =  \frac{1}{cs - \sum_{k=1}^{\infty} \nu_k \frac{(-s)^k}{k!} - q}. 
+\]
+We can approximate this expression by a Pade approximation of order $[n-1,n]$
+\begin{align}
+\label{appxW}
+\hat{W}_q(s) \approx \frac{P_{n-1}(s)}{Q_{n}(s)} = \frac{\sum_{i=0}^{n-1} a_i s^i}{cs^n + \sum_{i=0}^{n-1} b_i s^i}
+\end{align}
+for some constants $a_i, b_i$, $i=0, \ldots, n-1$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+After the approximation the denominator can be factored as
+\[
+cs^n + \sum_{i=0}^{n-1} b_i s^i = c(s-\gamma_0) \prod_{i=1}^{n} (s+\gamma_i)
+\]
+and after a partial fraction decomposition of (\ref{appxW}) we get
+\[
+\hat{W}_q(s) \approx \frac{C_0}{s-\gamma_0} + \sum_{i=1}^{n} \frac{C_i}{s+\gamma_i}
+\]
+\[
+\Rightarrow W_q(x) \approx C_0 e^{\gamma_0 x} + \sum_{i=1}^{n} C_i e^{-\gamma_i x}
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Looking back at the properties of the $W_q$ function in the Cramer-Lundberg case, we can force (\ref{W0}) and (\ref{Wprime0}) by setting $a_{n-1}=1$ and $ b_{n-1} = ca_{n-2} -\lambda - q$
+\[
+\hat{W}_q(s) \approx \frac{s^{n-1} + \sum_{i=0}^{n-2} a_i s^i}{cs^n + (c a_{n-2} -\lambda - q) s^{n-1} +\sum_{i=0}^{n-2} b_i s^i}.
+\]
+
+Since we are fitting two values $W_q(0)$ and $W'_q(0)$ into the Pade approximation, this would be a $[1,2]$ Pade approximant
+\[
+\hat{W}_q(s) \approx \frac{s + a_0}{cs^2 + (c a_0 -\lambda - q) s +b_0}.
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Comparing this with the true value of $\hat{W}_q(s)$,
+\[
+\hat{W}_q(s) = \frac{1}{\kappa(s)-q} \approx \frac{s + a_0}{cs^2 + (c a_0 -\lambda - q) s +b_0}
+\]
+\[
+\Rightarrow cs^2 +(c a_0 -\lambda - q) s +b_0 \approx (s + a_0)(\kappa(s)-q)
+\]
+\[
+\Rightarrow cs^2 +(c a_0 -\lambda - q) s +b_0 \approx (s + a_0)(cs -\nu_1 s +... -q)
+\]
+\[
+\Rightarrow cs^2 +(c a_0 -\lambda - q) s +b_0 \approx (s + a_0)(cs -\lambda m_1 s  -q)
+\]
+\[
+\Rightarrow a_0 = \frac{1}{m_1} \text{ and } b_0 = -\frac{q}{m_1}.
+\]
+That is,
+\begin{align}
+\label{WWprime}
+\hat{W}_q(s) \approx \frac{s +  \frac{1}{m_1}}{cs^2 + ( \frac{c}{m_1} -\lambda - q) s -\frac{q}{m_1}}.
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+We note that the given approximation in (\ref{WWprime}) is the same approximation if we consider the claims to be exponential with $m_1 = \frac{1}{\mu}$, as in (\ref{CLexpo}).\\
+\bigskip
+The optimal boundary $b*$ for this approximation to the $W_q$ function is thus already been solved.
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+One can also approximate $W_q$ by a higher order Pade approximant, taking into account only (\ref{W0}).\\
+That is, setting $n=2$ and $a_{n-1} = 1$ we have
+\[
+\hat{W}_q(s) = \frac{1}{\kappa(s)-q} \approx \frac{s + a_0}{cs^2 + b_1 s + b_0}.
+\]
+\[
+\Rightarrow \hat{W}_q(s) \approx \frac{s + a_0}{cs^2 + b_1 s + b_0}.
+\]
+\[
+\Rightarrow cs^2 +b_1 s +b_0 \approx (s + a_0)(\kappa(s)-q)
+\]
+\[
+\Rightarrow cs^2 +b_1 s +b_0 \approx (s + a_0)(cs - \lambda m_1 s + \lambda m_2 \tfrac{s^2}{s} - q)
+\]
+\[
+\Rightarrow a_0 = \frac{2m_1}{m_2}, b_1 = \frac{2c m_1 - 2\lambda m_1^2 - m_2 q}{m_2}, \text{ and } b_0 = -\frac{2m_1 q}{m_2}.
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Therefore
+\[
+\hat{W}_q(s) \approx \frac{s +\frac{2m_1}{m_2}}{cs^2 + \lt( \frac{2c m_1 - 2\lambda m_1^2 - m_2 q}{m_2} \rt) s -\frac{2m_1 q}{m_2}}.
+\]
+This can be rewitten as 
+\[
+\hat{W}_q(s) \approx \frac{s +\frac{1}{\tilde {m}_1}}{cs^2 + \lt( \frac{c}{\tilde{m}_1} - \lambda \frac{m_1}{\tilde{m}_1} -q \rt) s -\frac{q}{\tilde {m}_1}}.
+\]
+where $\tilde{m}_1 = \frac{m_2}{2m_1}$ is the first moment of the equilibrium density $f_e = \frac{\bar{F}}{m_1}$. This approximation is more commonly known as DeVylder's method.
+\end{frame}
+
+\subsection{Laguerre Approximation}
+\label{LaguerreSec}
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Consider the Laguerre polynomials
+\[
+L_n(x) = \frac{e^x}{n!} \cdot \frac{d^n}{dx^n}[e^{-x} x^n] = \sum_{k=0}^{n} \binom{n}{k} \frac{(-x)^k}{k!}
+\]
+for $x \geq 0$, $n=0, 1, \ldots$. These polynomials are orthogonal with respect to the weight $e^{-\frac{x}{2}}$, and for constant $\alpha$, $L_n(\alpha x)$ has Laplace transform given by
+\[
+\hat{L}_n(s) = \frac{(s-\alpha)^n}{s^{n+1}}, n=0,1, \ldots.
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Define $W^{(\Phi_q)}_0$ to be the $q=0$ scale function with respect to the Esscher transformed measure $P^{(\Phi_q)}$ (will not be discussed in detail, see (\cite{AA}), (\cite{Kyp})) given by
+\[
+W_q(x) = e^{x \Phi_q} \cdot W^{(\Phi_q)}_0 (x).
+\]
+By dividing by $e^{x \Phi_q}$, one removes the unique positive pole of $\hat{W}_q$
+\[
+\hat{W}_q(s) = \frac{1}{s - \Phi_q} \cdot \widehat{W^{(\Phi_q)}_0} (s)
+\]
+\[
+\Rightarrow (s - \Phi_q)\hat{W}_q(s) = \widehat{W^{(\Phi_q)}_0} (s).
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+By property of Laplace transforms we also know that
+\begin{align*}
+W^{(\Phi_q)}_0 (x) &=  e^{-x \Phi_q} \cdot W_q(x)\\
+\Rightarrow \widehat{W^{(\Phi_q)}_0} (s) &= \hat{W}_q(s + \Phi_q) = \frac{1}{\kappa(s + \Phi_q) - q}\\
+&= \frac{1}{\kappa(s + \Phi_q) - \kappa(\Phi_q)}.
+\end{align*}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Following (\cite{abate1998numerical}), one can consider
+\begin{align} \label{GW}
+G(x) = W^{(\Phi_q)}_0(\infty) - W^{(\Phi_q)}_0 (x)
+\end{align}
+and approximate using Laguerre polynomials
+\begin{align} \label{GB}
+G(x) \approx C \sum_{n=0}^{\infty} B_n e^{-\alpha x/2} L_n(\alpha x)
+\end{align}
+for some chosen constants $C, \alpha$, and coefficients $B_n$ to be solved for. Taking the Laplace transform of (\ref{GW})
+\begin{align}
+\widehat{G (x)} = \widehat{W^{(\Phi_q)}_0(\infty)} - \widehat{W^{(\Phi_q)}_0 (x)} \nonumber \\
+\hat{G}(s)= \frac{W^{(\Phi_q)}_0(\infty)}{s} - \widehat{W^{(\Phi_q)}_0} (s) \nonumber \\
+=  \frac{W^{(\Phi_q)}_0(\infty)}{s} - \frac{1}{\kappa(s + \Phi_q) - \kappa(\Phi_q)}. \label{Hcomp1}
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Taking the Laplace transform of (\ref{GB}) we have
+\[
+\hat{G}(s) \approx C \sum_{n=0}^{\infty} B_n \cdot \hat{L}_n(s+\alpha / 2) = C \sum_{n=0}^{\infty} B_n \frac{(s - \alpha / 2)^n}{ (s+\alpha/2)^{n+1}}.
+\]
+Some computations yield
+\begin{align}
+\hat{H}(s) &= (s+\alpha/2) \hat{G}(s) \approx C \sum_{n=0}^{\infty} B_n \frac{(s - \alpha / 2)^n}{ (s+\alpha/2)^{n}} \nonumber \\
+\Rightarrow \hat{H} \lt( \frac{\alpha}{2} \cdot \frac{1+z}{1-z} \rt) &= \lt( \frac{\alpha}{1-z} \rt) \hat{G} \lt( \frac{\alpha}{2} \cdot \frac{1+z}{1-z} \rt)  \approx C \sum_{n=0}^{\infty} B_n z^n \label{Hcomp2}
+\end{align}
+upon using the `collocation' transformation $z = \frac{s - \alpha/2}{s + \alpha/2} \iff s = \frac{\alpha}{2} \cdot \frac{1+z}{1-z}$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Hence we solve for the coefficients $B_n$ by taking the Taylor expansion of $\hat{H} \lt( \frac{\alpha}{2} \frac{1+z}{1-z} \rt)$ which is known to us via (\ref{Hcomp2}) and (\ref{Hcomp1}). The approximation we get for $G$ gives us an approximation for $ W^{(\Phi_q)}_0$. An approximation for $W_q$ is then obtained by multiplying by $e^{x \Phi_q}$.
+
+With regards to the choice of $C$ and $\alpha$, one can do a first order Pade approximation discussed in (\ref{PadeApproxSection}), to obtain an approximation to $W^{(\Phi_q)}_0 (x)$ of the form
+\[
+W^{(\Phi_q)}_0 (x) \approx W^{(\Phi_q)}_0 (\infty) - C \frac{\alpha}{2} e^{-\frac{\alpha}{2}x}.
+\]
+\end{frame}
+
+
+\subsection{Example: a Cramer-Lundberg model with exponential mixture jumps of order two}
+\label{exCL2}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Consider a Cramer-Lundberg process with $c=1/2$, $\lambda = 29/48$ with claim density given by $f(x) = \frac{8}{29}e^{-x} + \frac{42}{29} e^{-2x}$. To obtain rational values we fix $q=1/16$.
+
+Computing the Levy exponent, one gets
+\[
+\kappa(s) = \frac{1}{2} s + \frac{8}{48} \lt( \frac{1}{s+1} - 1\rt) + \frac{21}{48} \lt( \frac{2}{s+2} -1 \rt)
+\]
+which then yields
+\[
+\hat{W}_q (s) = \frac{1}{\kappa(s) - 1/16} = \frac{24(s+1)(s+2)}{(3s-1)(2s+1)(2s+3)}
+\]
+\[
+\Rightarrow W_q(x) = -\frac{3}{11} e^{-3x/2} - \frac{9}{5} e^{-x/2} +\frac{224}{55} e^{x/3}.
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+\begin{figure}
+\caption{Plot of $W_q^{''}$, optimal barrier value $b^* = 0.642265$}
+\begin{center}
+\includegraphics [width=2.8in]{pw2.eps}
+\end{center}
+\label{pw2}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+Doing the approximation described in (\ref{LaguerreSec}), one first computes
+\[
+\widehat{W^{(\Phi_q)}_0 (x)} = \frac{8(3s+4)(3s+7)}{s(6s+5)(6s+11)}
+\]
+which then leads to
+\[
+\hat{G}(s) = \frac{72(57s+97)}{55(6s+5)(6s+11)}.
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+\begin{figure}
+\caption{Relative errors of the Laguerre approximation in \ref{exCL2}}
+\begin{center}
+\includegraphics [width=2.8in]{err2.eps}
+\end{center}
+\label{err2}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+\framesubtitle{\insertsubsectionhead}
+A [0,1] Pade approximation to $\hat{G}$ gives us $\frac{677448}{55(6177s + 5335)}$ implying the Laguerre exponent $\alpha/2 = 5335/6177 = 0.863688$. The resulting error in the Laguerre approximation is plotted in (\ref{err2}), with the largest error being $6*10^{-6}$ when 30 terms are considered in the Laguerre expansion.
+\end{frame}
+
+\section{Trainings completed, Article submitted}
+\begin{frame}
+\frametitle{\insertsectionhead}
+\begin{table}[]
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Les Formations}               & \textbf{Date}          & \textbf{Hours} \\ \hline
+Gestion du projet de th\'ese            & 5 Nov 2018             & 7              \\ \hline
+Public speaking for scientists        & 7 Dec 2018             & 14             \\ \hline
+Ethique et int\'egrit\'e scientifique     & 13 Dec 2018            & 7              \\ \hline
+Information Scientifique et technique & 28 Jan 2019            & 7              \\ \hline
+English language training*             & Dec 2018 to April 2019 & 40**          \\ \hline
+French language training***            & Jan 2019 to May 2019   & 40**            \\ \hline
+English for Research Communication    & Feb 2019 to April 2019 & 15**          \\ \hline
+\end{tabular}
+\end{table}
+*resulted in a Cambridge Certificate in Advanced English CEFR level C2\\
+**approximate number of hours\\
+***passed level A2
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\insertsectionhead}
+Journal name: Risks\\
+Manuscript ID: risks-618671\\
+Type of manuscript: Article\\
+Title: On the Pad\'e and Laguerre-Tricomi-Weeks moments based approximations of the scale function W and of the optimal dividends barrier for spectrally negative L\'evy risk processes\\
+Authors: Florin Avram, Andras Horvath, Serge Provost, Ulyses Solon\\
+Received: 30 September 2019
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\bibliographystyle{plainnat}
+\bibliography{Pare36}
+\end{frame}
+
+\begin{frame}
+\frametitle{END}
+\end{frame}
+
+\end{document}
+
+
+

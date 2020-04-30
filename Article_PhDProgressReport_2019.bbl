@@ -1,0 +1,95 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abate et~al.(1998)Abate, Choudhury, and Whitt]{abate1998numerical}
+Joseph Abate, Gagan~L Choudhury, and Ward Whitt.
+\newblock Numerical inversion of multidimensional laplace transforms by the
+  laguerre method.
+\newblock \emph{Performance Evaluation}, 31\penalty0 (3-4):\penalty0 229--243,
+  1998.
+
+\bibitem[Albrecher and Asmussen(2010)]{AA}
+Hansj{\"o}rg Albrecher and S{\"o}ren Asmussen.
+\newblock \emph{Ruin probabilities}, volume~14.
+\newblock World Scientific, 2010.
+
+\bibitem[Avram et~al.(2007)Avram, Palmowski, and Pistorius]{APP}
+F.~Avram, Z.~Palmowski, and M.~R. Pistorius.
+\newblock On the optimal dividend problem for a spectrally negative {L\'e}vy
+  process.
+\newblock \emph{The Annals of Applied Probability}, 17\penalty0 (1):\penalty0
+  156--180, 2007.
+
+\bibitem[Azcue and Muler(2005)]{AM05}
+P.~Azcue and N.~Muler.
+\newblock Optimal reinsurance and dividend distribution policies in the
+  {C}ram{\'e}r-{L}undberg model.
+\newblock \emph{Mathematical Finance}, 15\penalty0 (2):\penalty0 261--308,
+  2005.
+
+\bibitem[Bertoin(1998)]{Ber}
+Jean Bertoin.
+\newblock \emph{L{\'e}vy processes}, volume 121.
+\newblock Cambridge university press, 1998.
+
+\bibitem[Bingham(1976)]{Bingham}
+Nicholas~H Bingham.
+\newblock Continuous branching processes and spectral positivity.
+\newblock \emph{Stochastic Processes and their Applications}, 4\penalty0
+  (3):\penalty0 217--242, 1976.
+
+\bibitem[de~Finetti(1957)]{deF}
+B.~de~Finetti.
+\newblock Su un'impostazione alternativa della teoria collettiva del rischio.
+\newblock In \emph{Transactions of the XVth international congress of
+  Actuaries}, volume~2, pages 433--443, 1957.
+
+\bibitem[Gerber and Shiu(2004)]{gerber2004optimal}
+Hans~U Gerber and Elias~SW Shiu.
+\newblock Optimal dividends: analysis with brownian motion.
+\newblock \emph{North American Actuarial Journal}, 8\penalty0 (1):\penalty0
+  1--20, 2004.
+
+\bibitem[Gerber et~al.(2008)Gerber, Shiu, and Smith]{gerber2008methods}
+Hans~U Gerber, Elias~SW Shiu, and Nathaniel Smith.
+\newblock Methods for estimating the optimal dividend barrier and the
+  probability of ruin.
+\newblock \emph{Insurance: Mathematics and Economics}, 42\penalty0
+  (1):\penalty0 243--254, 2008.
+
+\bibitem[Kuznetsov et~al.(2012)Kuznetsov, Kyprianou, and Rivero]{KKP}
+Alexey Kuznetsov, Andreas~E Kyprianou, and Victor Rivero.
+\newblock The theory of scale functions for spectrally negative l{\'e}vy
+  processes.
+\newblock In \emph{L{\'e}vy matters II}, pages 97--186. Springer, 2012.
+
+\bibitem[Kyprianou(2014)]{Kyp}
+A.~Kyprianou.
+\newblock \emph{Fluctuations of L{\'e}vy Processes with Applications:
+  Introductory Lectures}.
+\newblock Springer Science \& Business Media, 2014.
+
+\bibitem[Kyprianou and Surya(2007)]{Kyprianou_Surya}
+Andreas~E Kyprianou and Budhi~Arta Surya.
+\newblock Principles of smooth and continuous fit in the determination of
+  endogenous bankruptcy levels.
+\newblock \emph{Finance and Stochastics}, 11\penalty0 (1):\penalty0 131--152,
+  2007.
+
+\bibitem[Loeffen(2008)]{Loef08}
+RL~Loeffen.
+\newblock On optimality of the barrier strategy in de finetti's dividend
+  problem for spectrally negative l{\'e}vy processes.
+\newblock \emph{The Annals of Applied Probability}, 18\penalty0 (5):\penalty0
+  1669--1680, 2008.
+
+\bibitem[Rolski et~al.(2009)Rolski, Schmidli, Schmidt, and Teugels]{Rolski}
+Tomasz Rolski, Hanspeter Schmidli, Volker Schmidt, and Jozef Teugels.
+\newblock \emph{Stochastic processes for insurance and finance}, volume 505.
+\newblock John Wiley \& Sons, 2009.
+
+\end{thebibliography}
